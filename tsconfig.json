@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.paths.json",
+  "include": [
+    "./src/**/*",
+    "declaration.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "scripts"
+  ],
+  "compilerOptions": {
+    "strict": false,
+    "noEmitOnError": false,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "baseUrl": "src"
+  }
+}

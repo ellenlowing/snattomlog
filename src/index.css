@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  margin:0;
+  background-color: rgb(31, 31, 31);
+  font-family: 'Semplicita Medium';
+  font-weight: 400;
+  line-height: 22px;
+}
