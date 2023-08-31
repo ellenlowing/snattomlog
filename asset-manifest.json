@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ellenlowing.github.io/snattomlog/static/css/main.19c2ebce.css",
-    "main.js": "/ellenlowing.github.io/snattomlog/static/js/main.e47bb60b.js",
-    "static/js/787.8daebe8a.chunk.js": "/ellenlowing.github.io/snattomlog/static/js/787.8daebe8a.chunk.js",
-    "static/media/background.png": "/ellenlowing.github.io/snattomlog/static/media/background.5c18d56ab8c5386eac25.png",
-    "index.html": "/ellenlowing.github.io/snattomlog/index.html",
-    "main.19c2ebce.css.map": "/ellenlowing.github.io/snattomlog/static/css/main.19c2ebce.css.map",
-    "main.e47bb60b.js.map": "/ellenlowing.github.io/snattomlog/static/js/main.e47bb60b.js.map",
-    "787.8daebe8a.chunk.js.map": "/ellenlowing.github.io/snattomlog/static/js/787.8daebe8a.chunk.js.map"
+    "main.css": "/snattomlog/static/css/main.19c2ebce.css",
+    "main.js": "/snattomlog/static/js/main.b28b680b.js",
+    "static/js/787.8daebe8a.chunk.js": "/snattomlog/static/js/787.8daebe8a.chunk.js",
+    "static/media/background.png": "/snattomlog/static/media/background.5c18d56ab8c5386eac25.png",
+    "index.html": "/snattomlog/index.html",
+    "main.19c2ebce.css.map": "/snattomlog/static/css/main.19c2ebce.css.map",
+    "main.b28b680b.js.map": "/snattomlog/static/js/main.b28b680b.js.map",
+    "787.8daebe8a.chunk.js.map": "/snattomlog/static/js/787.8daebe8a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.19c2ebce.css",
-    "static/js/main.e47bb60b.js"
+    "static/js/main.b28b680b.js"
   ]
 }
