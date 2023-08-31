@@ -7,10 +7,10 @@ const RightContainer = () => {
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   useEffect(() => {
-    setRoutes(['About', 'Culture', 'Solution', 'Technology', 'Sustainability'])
+    setRoutes(['about', 'culture', 'solution', 'technology', 'sustainability'])
   }, [t])
   const onClickRoute = (route: string) => {
-    window.location.href = `/about?commitment=${route}`
+    window.location.href = `/${route.toLowerCase()}`
   }
   const bottomTexts: string[] = ['Contact', 'Language']
 
@@ -25,7 +25,8 @@ const RightContainer = () => {
         <div className="flex flex-col justify-center items-center w-1/2">
           {routes.map((route, i) => (
             <div
-              className="p-2 w-full text-center hover:cursor-pointer hover:bg-slate-500 text-lg"
+              key={i}
+              className="p-2 w-full text-center hover:cursor-pointer hover:bg-slate-500 text-lg capitalize"
               onClick={() => onClickRoute(route)}
             >
               {t(route)}

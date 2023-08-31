@@ -1,7 +1,9 @@
 import DisplayContainer from './DisplayContainer'
 import TopRouteContainer from './TopRouteContainer'
 
-const CommitmentContainer = () => {
+export type CommitmentContainerProps = {}
+
+const CommitmentContainer = (props: CommitmentContainerProps) => {
   return (
     <div className="flex flex-col w-full h-screen items-center text-white justify-start">
       <TopRouteContainer />

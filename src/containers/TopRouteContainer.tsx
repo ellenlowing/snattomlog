@@ -11,20 +11,18 @@ const TopRouteContainer = () => {
 
   useLanguage()
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const commitment = urlParams.get('commitment')
-    if (commitment) {
-      setActiveRoute(commitment)
-    }
+    const route = window.location.href.split('/').pop().split('?')[0]
+    const capitalizeRoute = route.charAt(0).toUpperCase() + route.slice(1)
+    setActiveRoute(route)
   }, [])
   useEffect(() => {
     setRoutes([
-      'Home',
-      'About',
-      'Culture',
-      'Solution',
-      'Technology',
-      'Sustainability',
+      'home',
+      'about',
+      'culture',
+      'solution',
+      'technology',
+      'sustainability',
     ])
   }, [t])
 
@@ -33,14 +31,14 @@ const TopRouteContainer = () => {
       window.location.href = `/`
       return
     }
-    window.location.href = `/about?commitment=${route}`
-    setActiveRoute(route)
+    window.location.href = `/${route.toLowerCase()}`
   }
 
   return (
     <div className="flex flex-row h-1/6 w-full justify-center items-center py-12 px-48">
       {routes.slice(0, 3).map((route, i) => (
         <TopRouteComponent
+          key={i}
           route={route}
           onClickRoute={onClickRoute}
           activeRoute={activeRoute}
@@ -53,6 +51,7 @@ const TopRouteContainer = () => {
       </div>
       {routes.slice(3, 6).map((route, i) => (
         <TopRouteComponent
+          key={i}
           route={route}
           onClickRoute={onClickRoute}
           activeRoute={activeRoute}

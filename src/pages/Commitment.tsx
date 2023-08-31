@@ -2,7 +2,7 @@ import background from '@assets/background.png'
 import DotSeparatedTexts from '@components/DotSeparatedTexts'
 import CommitmentContainer from '@containers/CommitmentContainer'
 
-const Commitment = () => {
+const About = () => {
   const texts: string[] = ['Contact', 'Download Fact Sheet']
   return (
     <div
@@ -10,9 +10,9 @@ const Commitment = () => {
       style={{ backgroundImage: `url(${background})` }}
     >
       <CommitmentContainer />
-      <div className="w-full h-[100px] bg-gradient-to-b from-transparent to-black"></div>
-      <div className="w-full h-[150px] flex flex-col justify-between items-center px-[15%] pb-[40px] bg-black">
-        <div className="text-lg text-white">
+      <div className="w-full h-[100px] bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-black"></div>
+      <div className="w-full flex flex-col justify-between items-center px-[15%] pb-[40px] bg-black">
+        <div className="text-lg text-white h-[100px] mb-12">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -31,4 +31,4 @@ const Commitment = () => {
   )
 }
 
-export default Commitment
+export default About

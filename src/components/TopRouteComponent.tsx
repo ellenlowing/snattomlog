@@ -15,7 +15,7 @@ const TopRouteComponent = (props: TopRouteComponentProps) => {
       className="flex flex-col justify-center items-center h-[50px] hover:bg-slate-500 hover:cursor-pointer flex-1"
       onClick={() => onClickRoute(route)}
     >
-      <div className="text-center text-lg">{t(route)}</div>
+      <div className="text-center text-lg capitalize">{t(route)}</div>
       {activeRoute === route && <Dot size={5} />}
     </div>
   )

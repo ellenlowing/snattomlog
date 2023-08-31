@@ -24,16 +24,14 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
   const popUpRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    console.log(popUpRef.current)
     if (popUpRef.current) {
       setPopUpWidth(`${popUpRef.current.offsetWidth * 1.1}px`)
-      console.log(popUpRef.current.offsetWidth)
     }
   }, [])
   return (
     <div className="flex flex-row w-5/6 justify-center items-center">
       {texts.map((text, i) => (
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center" key={i}>
           {isShowPopUp && (
             <div
               className="absolute bg-slate-500 flex flex-col items-start justify-center"
@@ -48,8 +46,9 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
               }}
             >
               {popUpTexts[text] &&
-                popUpTexts[text].map(popUpText => (
+                popUpTexts[text].map((popUpText, i) => (
                   <div
+                    key={i}
                     className="text-sm h-[20px] px-1 w-full hover:bg-slate-400"
                     onClick={() => {
                       popUpText.onClick()
