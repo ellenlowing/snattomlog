@@ -1,5 +1,4 @@
 {
-  "homepage": "http://ellenlowing.github.io/snattomlog",
   "name": "snattomlog",
   "version": "0.1.0",
   "private": true,
@@ -27,8 +26,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
