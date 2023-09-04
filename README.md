@@ -1,3 +1,13 @@
+# Deployment
+
+- Use Heroku-20 Stack
+
+`heroku stack:set heroku-20 --app serene-harbor-04825`
+
+- Use deprecated create-react-app buildpack
+
+`heroku buildpacks:set mars/create-react-app --app serene-harbor-04825`
+ 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
