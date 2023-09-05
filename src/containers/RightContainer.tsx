@@ -3,7 +3,12 @@ import i18n from 'i18next'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const RightContainer = () => {
+export type RightContainerProps = {
+  setHoverSection: (hoverSection: string) => void
+}
+
+const RightContainer = (props: RightContainerProps) => {
+  const { setHoverSection } = props
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   useEffect(() => {
@@ -26,14 +31,16 @@ const RightContainer = () => {
           {routes.map((route, i) => (
             <div
               key={i}
-              className="p-2 w-full text-center hover:cursor-pointer hover:bg-slate-500 text-lg capitalize"
+              className="p-2 w-full text-center hover:cursor-pointer hover:font-bold text-lg capitalize"
               onClick={() => onClickRoute(route)}
+              onMouseEnter={() => setHoverSection(route)}
+              onMouseLeave={() => setHoverSection('')}
             >
               {t(route)}
             </div>
           ))}
         </div>
-        <div className="italic text-md my-10 w-1/2 h-[50px] text-center hover:cursor-pointer hover:bg-slate-500 flex justify-center items-center">
+        <div className="italic text-md my-10 w-1/2 h-[50px] text-center hover:cursor-pointer hover:font-bold flex justify-center items-center">
           <div>Download Our Fact Sheet</div>
         </div>
       </div>
@@ -43,15 +50,15 @@ const RightContainer = () => {
         popUpTexts={{
           Language: [
             {
-              text: 'en',
+              text: 'English',
               onClick: () => onClickLanguage('en'),
             },
             {
-              text: 'fr',
+              text: 'French',
               onClick: () => onClickLanguage('fr'),
             },
             {
-              text: 'it',
+              text: 'Italian',
               onClick: () => onClickLanguage('it'),
             },
           ],

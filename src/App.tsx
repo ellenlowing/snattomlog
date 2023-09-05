@@ -1,11 +1,12 @@
 import { store } from '@stores/index'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
+import './fonts.css'
 import Routes from './routes'
 
 function App() {
   return (
-    <div>
+    <div style={{ fontFamily: 'Helveltica' }}>
       <Provider store={store}>
         <BrowserRouter>
           <Routes />

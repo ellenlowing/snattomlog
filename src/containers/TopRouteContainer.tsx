@@ -4,7 +4,13 @@ import useLanguage from '@hooks/useLanguage'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const TopRouteContainer = () => {
+export type TopRouteContainerProps = {
+  isEnlargeImage: boolean
+  setIsEnlargeImage: (isEnlargeImage: boolean) => void
+}
+
+const TopRouteContainer = (props: TopRouteContainerProps) => {
+  const { isEnlargeImage, setIsEnlargeImage } = props
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   const [activeRoute, setActiveRoute] = useState<string>(routes[0])
@@ -27,6 +33,10 @@ const TopRouteContainer = () => {
   }, [t])
 
   const onClickRoute = (route: string) => {
+    if (isEnlargeImage) {
+      setIsEnlargeImage(false)
+      return
+    }
     if (route === 'Home') {
       window.location.href = `/`
       return
@@ -35,16 +45,27 @@ const TopRouteContainer = () => {
   }
 
   return (
-    <div className="flex flex-row h-1/6 w-full justify-center items-center py-12 px-48">
+    <div
+      className="flex flex-row h-1/6 w-full justify-center items-center py-12 px-48"
+      onClick={() => setIsEnlargeImage(false)}
+    >
       {routes.slice(0, 3).map((route, i) => (
         <TopRouteComponent
           key={i}
           route={route}
           onClickRoute={onClickRoute}
+          isEnlargeImage={isEnlargeImage}
           activeRoute={activeRoute}
         />
       ))}
-      <div className="flex flex-col justify-center flex-1 h-full">
+      <div
+        className={`flex flex-col justify-center flex-1 h-full ${
+          isEnlargeImage ? '' : 'hover:cursor-pointer'
+        }`}
+        onClick={() => {
+          onClickRoute('Home')
+        }}
+      >
         <div className="flex flex-row justify-center items-center h-full">
           <img className="text-center text-8xl h-full" src={logo} alt="SO" />
         </div>
@@ -54,6 +75,7 @@ const TopRouteContainer = () => {
           key={i}
           route={route}
           onClickRoute={onClickRoute}
+          isEnlargeImage={isEnlargeImage}
           activeRoute={activeRoute}
         />
       ))}

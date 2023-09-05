@@ -34,10 +34,10 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
         <div className="flex flex-row justify-center" key={i}>
           {isShowPopUp && (
             <div
-              className="absolute bg-slate-500 flex flex-col items-start justify-center"
+              className="absolute flex flex-col items-end justify-between"
               style={{
                 transform: `translateY(-${
-                  Object.keys(popUpTexts).length * 20 + 40
+                  Object.keys(popUpTexts).length * 30 + 80
                 }px)`,
                 width: popUpWidth,
               }}
@@ -49,7 +49,7 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
                 popUpTexts[text].map((popUpText, i) => (
                   <div
                     key={i}
-                    className="text-sm h-[20px] px-1 w-full hover:bg-slate-400"
+                    className="text-sm h-[30px] px-1 hover:font-bold hover:cursor-pointer"
                     onClick={() => {
                       popUpText.onClick()
                       setIsShowPopUp(false)
