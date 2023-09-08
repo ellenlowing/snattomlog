@@ -1,4 +1,4 @@
-import background from '@assets/background.png'
+import background from '@assets/background.jpg'
 import DotSeparatedTexts from '@components/DotSeparatedTexts'
 import CommitmentContainer from '@containers/CommitmentContainer'
 import { useState } from 'react'

@@ -6,7 +6,7 @@ import Routes from './routes'
 
 function App() {
   return (
-    <div style={{ fontFamily: 'Helveltica' }}>
+    <div>
       <Provider store={store}>
         <BrowserRouter>
           <Routes />

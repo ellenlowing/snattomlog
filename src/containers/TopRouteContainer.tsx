@@ -3,6 +3,7 @@ import TopRouteComponent from '@components/TopRouteComponent'
 import useLanguage from '@hooks/useLanguage'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 export type TopRouteContainerProps = {
   isEnlargeImage: boolean
@@ -14,11 +15,11 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   const [activeRoute, setActiveRoute] = useState<string>(routes[0])
+  const navigate = useNavigate()
 
   useLanguage()
   useEffect(() => {
     const route = window.location.href.split('/').pop().split('?')[0]
-    const capitalizeRoute = route.charAt(0).toUpperCase() + route.slice(1)
     setActiveRoute(route)
   }, [])
   useEffect(() => {
@@ -38,15 +39,16 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
       return
     }
     if (route === 'Home') {
-      window.location.href = `/`
+      navigate(`/`)
       return
     }
-    window.location.href = `/${route.toLowerCase()}`
+    navigate(`/${route.toLowerCase()}`)
+    setActiveRoute(route)
   }
 
   return (
     <div
-      className="flex flex-row h-1/6 w-full justify-center items-center py-12 px-48"
+      className="flex flex-row h-1/6 w-full justify-center items-center py-10 px-48"
       onClick={() => setIsEnlargeImage(false)}
     >
       {routes.slice(0, 3).map((route, i) => (
@@ -66,8 +68,8 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
           onClickRoute('Home')
         }}
       >
-        <div className="flex flex-row justify-center items-center h-full">
-          <img className="text-center text-8xl h-full" src={logo} alt="SO" />
+        <div className="flex flex-row justify-center items-center h-full ">
+          <img className="h-full object-cover" src={logo} alt="SO" />
         </div>
       </div>
       {routes.slice(3, 6).map((route, i) => (

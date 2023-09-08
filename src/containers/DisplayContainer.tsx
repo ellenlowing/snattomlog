@@ -199,13 +199,19 @@ const DisplayContainer = (props: DisplayContainerProps) => {
         </div>
       </div>
       <div
-        className={`text-xs text-center tracking-[10px] h-[10%] w-full flex justify-center items-center bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)] 
+        className={`text-xs text-center tracking-[10px] h-[10%] w-full flex justify-center items-center bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)] group 
         ${
           isTop ? 'hover:to-black' : '' //only work if this class is load on initial
-        } ${isEnlargeImage ? '' : 'hover:cursor-pointer'}`}
+        } ${isEnlargeImage ? '' : 'hover:cursor-s-resize'}`}
         onClick={onClickScrollDown}
       >
-        <div>THE SNATT OMLOG GROUP</div>
+        <div
+          className={`${
+            isTop ? 'group-hover:-translate-y-1' : ''
+          } duration-200`}
+        >
+          THE SNATT OMLOG GROUP
+        </div>
       </div>
     </div>
   )

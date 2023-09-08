@@ -2,6 +2,7 @@ import DotSeparatedTexts from '@components/DotSeparatedTexts'
 import i18n from 'i18next'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 export type RightContainerProps = {
   setHoverSection: (hoverSection: string) => void
@@ -11,11 +12,12 @@ const RightContainer = (props: RightContainerProps) => {
   const { setHoverSection } = props
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
+  const navigate = useNavigate()
   useEffect(() => {
     setRoutes(['about', 'culture', 'solution', 'technology', 'sustainability'])
   }, [t])
   const onClickRoute = (route: string) => {
-    window.location.href = `/${route.toLowerCase()}`
+    navigate(`/${route.toLowerCase()}`)
   }
   const bottomTexts: string[] = ['Contact', 'Language']
 

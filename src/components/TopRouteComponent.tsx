@@ -13,19 +13,23 @@ const TopRouteComponent = (props: TopRouteComponentProps) => {
   const { t } = useTranslation()
   return (
     <div
-      className={`flex flex-col justify-start items-center h-[50px] flex-1 ${
+      className={`flex flex-col justify-center items-center h-full flex-1  ${
         isEnlargeImage ? '' : 'hover:cursor-pointer hover:font-bold'
       }`}
       onClick={() => onClickRoute(route)}
     >
       <div
-        className={`text-center text-lg capitalize  ${
+        className={`text-center text-xl capitalize flex flex-col items-center justify-center ${
           activeRoute === route ? 'font-bold' : ''
         }`}
       >
         {t(route)}
+        {activeRoute === route && (
+          <div className="translate-y-1">
+            <Dot size={6} />
+          </div>
+        )}
       </div>
-      {activeRoute === route && <Dot size={5} />}
     </div>
   )
 }

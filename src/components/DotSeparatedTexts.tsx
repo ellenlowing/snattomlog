@@ -78,7 +78,7 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
               className="text-center h-[20px] aspect-square flex justify-center items-center"
               style={{ marginLeft: marginX, marginRight: marginX }}
             >
-              <Dot size={2} />
+              <Dot size={3} />
             </div>
           )}
         </div>
