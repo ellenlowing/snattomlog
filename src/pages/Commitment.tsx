@@ -16,7 +16,7 @@ const About = () => {
       style={{ backgroundImage: `url(${background})` }}
     >
       <div
-        className="w-full h-full duration-500"
+        className="w-full h-full duration-300"
         style={{ opacity: containerOpacity }}
       >
         <CommitmentContainer

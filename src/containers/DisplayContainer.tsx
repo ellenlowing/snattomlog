@@ -118,7 +118,7 @@ const DisplayContainer = (props: DisplayContainerProps) => {
   const [isSwitchingToNewInfo, setIsSwitchingToNewInfo] =
     useState<boolean>(false)
   const [oldActiveRoute, setOldActiveRoute] = useState<string>('')
-  const [displayImagesOpacity, setDisplayImagesOpacity] = useState<number>(1)
+  const [displayImagesOpacity, setDisplayImagesOpacity] = useState<number>(0)
   const onClickImage = (url: string) => {
     const indexOfImage = imageInfos.findIndex(imageInfo => {
       return imageInfo.url === url
@@ -134,7 +134,7 @@ const DisplayContainer = (props: DisplayContainerProps) => {
       //change content
       setTimeout(() => {
         setDisplayImagesOpacity(1)
-      }, 500)
+      }, 300)
     }
   }, [activeRoute])
 
@@ -190,11 +190,11 @@ const DisplayContainer = (props: DisplayContainerProps) => {
           if (isEnlargeImage) setIsEnlargeImage(false)
         }}
       >
-        <div className="text-center flex tracking-[25px] text-2xl bg-opacity-50 h-[20%] justify-center items-center">
+        <div className="font-medium text-center flex tracking-[25px] text-2xl bg-opacity-50 h-[20%] justify-center items-center">
           <div>COMMITMENT</div>
         </div>
         <div
-          className="w-4/6 flex-col bg-black p-[5px] bg-opacity-50 flex h-[60%] duration-500"
+          className="w-4/6 flex-col bg-black p-[5px] bg-opacity-50 flex h-[60%] duration-300"
           style={{ opacity: displayImagesOpacity }}
         >
           {[...new Array(2)].map((_, i) => (
