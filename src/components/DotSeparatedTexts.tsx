@@ -29,17 +29,21 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
     }
   }, [])
   return (
-    <div className="flex flex-row w-5/6 justify-center items-center">
+    <div className="flex flex-row w-full justify-center items-center">
       {texts.map((text, i) => (
         <div className="flex flex-row justify-center" key={i}>
           {isShowPopUp && (
             <div
-              className="absolute flex flex-col items-end justify-between"
+              className="absolute flex flex-col items-end justify-start"
               style={{
                 transform: `translateY(-${
                   Object.keys(popUpTexts).length * 30 + 80
                 }px)`,
                 width: popUpWidth,
+                height: `${Object.keys(popUpTexts).length * 30 + 80}px`,
+              }}
+              onMouseEnter={() => {
+                if (popUpTexts[text]) setIsShowPopUp(true)
               }}
               onMouseLeave={() => {
                 if (popUpTexts[text]) setIsShowPopUp(false)
@@ -49,7 +53,7 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
                 popUpTexts[text].map((popUpText, i) => (
                   <div
                     key={i}
-                    className="text-sm h-[30px] px-1 hover:font-bold hover:cursor-pointer"
+                    className="text-sm h-[30px] px-1 hover:font-bold hover:cursor-pointer capitalize"
                     onClick={() => {
                       popUpText.onClick()
                       setIsShowPopUp(false)
@@ -69,6 +73,9 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
             style={{ color: color }}
             onMouseEnter={() => {
               if (popUpTexts[text]) setIsShowPopUp(true)
+            }}
+            onMouseLeave={() => {
+              if (popUpTexts[text]) setIsShowPopUp(false)
             }}
           >
             {text}

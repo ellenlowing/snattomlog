@@ -1,5 +1,4 @@
 import DotSeparatedTexts from '@components/DotSeparatedTexts'
-import i18n from 'i18next'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -7,10 +6,13 @@ import { useNavigate } from 'react-router-dom'
 export type RightContainerProps = {
   setHoverSection: (hoverSection: string) => void
   setContainerOpacity: (opacity: number) => void
+  languages: string[]
+  onClickLanguage: (language: string) => void
 }
 
 const RightContainer = (props: RightContainerProps) => {
-  const { setHoverSection, setContainerOpacity } = props
+  const { setHoverSection, setContainerOpacity, onClickLanguage, languages } =
+    props
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   const navigate = useNavigate()
@@ -25,12 +27,8 @@ const RightContainer = (props: RightContainerProps) => {
   }
   const bottomTexts: string[] = ['Contact', 'Language']
 
-  const onClickLanguage = (language: string) => {
-    i18n.changeLanguage(language)
-    localStorage.setItem('language', language)
-  }
   return (
-    <div className="flex flex-1 flex-col justify-between items-center">
+    <div className="flex-1 flex-col justify-between items-center hidden lg:flex">
       <div />
       <div className="flex flex-col justify-center items-center flex-1 w-full">
         <div className="flex flex-col justify-center items-center w-1/2">
@@ -54,20 +52,10 @@ const RightContainer = (props: RightContainerProps) => {
         texts={bottomTexts}
         color={'white'}
         popUpTexts={{
-          Language: [
-            {
-              text: 'English',
-              onClick: () => onClickLanguage('en'),
-            },
-            {
-              text: 'French',
-              onClick: () => onClickLanguage('fr'),
-            },
-            {
-              text: 'Italian',
-              onClick: () => onClickLanguage('it'),
-            },
-          ],
+          Language: languages.map(language => ({
+            text: language,
+            onClick: () => onClickLanguage(language),
+          })),
         }}
         marginX={28}
       />

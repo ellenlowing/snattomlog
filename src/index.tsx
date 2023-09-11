@@ -8,24 +8,24 @@ import reportWebVitals from './reportWebVitals'
 
 import { initReactI18next } from 'react-i18next'
 
-import enTranslation from './locales/en.json'
-import frTranslation from './locales/fr.json'
-import itTranslation from './locales/it.json'
+import enTranslation from './locales/english.json'
+import frTranslation from './locales/french.json'
+import itTranslation from './locales/italian.json'
 
 i18n.use(initReactI18next).init({
   resources: {
-    en: {
+    english: {
       translation: enTranslation,
     },
-    fr: {
+    french: {
       translation: frTranslation,
     },
-    it: {
+    italian: {
       translation: itTranslation,
     },
   },
-  lng: 'en',
-  fallbackLng: 'en',
+  lng: 'english',
+  fallbackLng: 'english',
   interpolation: {
     escapeValue: false,
   },
