@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom'
 
 export type RightContainerProps = {
   setHoverSection: (hoverSection: string) => void
+  setContainerOpacity: (opacity: number) => void
 }
 
 const RightContainer = (props: RightContainerProps) => {
-  const { setHoverSection } = props
+  const { setHoverSection, setContainerOpacity } = props
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   const navigate = useNavigate()
@@ -17,7 +18,10 @@ const RightContainer = (props: RightContainerProps) => {
     setRoutes(['about', 'culture', 'solution', 'technology', 'sustainability'])
   }, [t])
   const onClickRoute = (route: string) => {
-    navigate(`/${route.toLowerCase()}`)
+    setContainerOpacity(0)
+    setTimeout(() => {
+      navigate(`/${route.toLowerCase()}`)
+    }, 500)
   }
   const bottomTexts: string[] = ['Contact', 'Language']
 

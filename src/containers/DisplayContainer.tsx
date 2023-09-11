@@ -21,6 +21,7 @@ import { useEffect, useState } from 'react'
 export type DisplayContainerProps = {
   isEnlargeImage: boolean
   setIsEnlargeImage: (isEnlargeImage: boolean) => void
+  activeRoute: string
 }
 export type ImageInfo = {
   url: string
@@ -110,13 +111,14 @@ const imageInfos: ImageInfo[] = [
   },
 ]
 const DisplayContainer = (props: DisplayContainerProps) => {
-  const { isEnlargeImage, setIsEnlargeImage } = props
+  const { isEnlargeImage, setIsEnlargeImage, activeRoute } = props
   const [enlargeImageInfo, setEnlargeImageInfo] = useState(imageInfos[0])
   const [isTop, setIsTop] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isSwitchingToNewInfo, setIsSwitchingToNewInfo] =
     useState<boolean>(false)
-
+  const [oldActiveRoute, setOldActiveRoute] = useState<string>('')
+  const [displayImagesOpacity, setDisplayImagesOpacity] = useState<number>(1)
   const onClickImage = (url: string) => {
     const indexOfImage = imageInfos.findIndex(imageInfo => {
       return imageInfo.url === url
@@ -125,6 +127,17 @@ const DisplayContainer = (props: DisplayContainerProps) => {
     setCurrentIndex(indexOfImage)
     setIsEnlargeImage(true)
   }
+  useEffect(() => {
+    if (oldActiveRoute !== activeRoute) {
+      setOldActiveRoute(activeRoute)
+      setDisplayImagesOpacity(0)
+      //change content
+      setTimeout(() => {
+        setDisplayImagesOpacity(1)
+      }, 500)
+    }
+  }, [activeRoute])
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) setIsTop(true)
@@ -180,7 +193,10 @@ const DisplayContainer = (props: DisplayContainerProps) => {
         <div className="text-center flex tracking-[25px] text-2xl bg-opacity-50 h-[20%] justify-center items-center">
           <div>COMMITMENT</div>
         </div>
-        <div className="w-4/6 flex-col bg-black p-[5px] bg-opacity-50 flex h-[60%]">
+        <div
+          className="w-4/6 flex-col bg-black p-[5px] bg-opacity-50 flex h-[60%] duration-500"
+          style={{ opacity: displayImagesOpacity }}
+        >
           {[...new Array(2)].map((_, i) => (
             <div
               className="flex flex-row justify-center items-center w-full h-1/2"

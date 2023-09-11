@@ -8,20 +8,28 @@ import { useNavigate } from 'react-router-dom'
 export type TopRouteContainerProps = {
   isEnlargeImage: boolean
   setIsEnlargeImage: (isEnlargeImage: boolean) => void
+  setContainerOpacity: (opacity: number) => void
+  activeRoute: string
+  setActiveRoute: (activeRoute: string) => void
 }
 
 const TopRouteContainer = (props: TopRouteContainerProps) => {
-  const { isEnlargeImage, setIsEnlargeImage } = props
+  const {
+    isEnlargeImage,
+    setIsEnlargeImage,
+    setContainerOpacity,
+    activeRoute,
+    setActiveRoute,
+  } = props
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
-  const [activeRoute, setActiveRoute] = useState<string>(routes[0])
   const navigate = useNavigate()
 
   useLanguage()
   useEffect(() => {
     const route = window.location.href.split('/').pop().split('?')[0]
     setActiveRoute(route)
-  }, [])
+  }, [setActiveRoute])
   useEffect(() => {
     setRoutes([
       'home',
@@ -38,8 +46,11 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
       setIsEnlargeImage(false)
       return
     }
-    if (route === 'Home') {
-      navigate(`/`)
+    if (route.toLowerCase() === 'home') {
+      setContainerOpacity(0)
+      setTimeout(() => {
+        navigate(`/`)
+      }, 500)
       return
     }
     navigate(`/${route.toLowerCase()}`)
@@ -65,7 +76,7 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
           isEnlargeImage ? '' : 'hover:cursor-pointer'
         }`}
         onClick={() => {
-          onClickRoute('Home')
+          onClickRoute('home')
         }}
       >
         <div className="flex flex-row justify-center items-center h-full ">

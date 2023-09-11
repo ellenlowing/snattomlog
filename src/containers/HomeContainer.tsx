@@ -4,7 +4,7 @@ import solutionsImg from '@assets/Left/Solutions.png'
 import sustainabilityImg from '@assets/Left/Sustainability.png'
 import technologyImg from '@assets/Left/Technology.png'
 import background from '@assets/background.jpg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import RightContainer from './RightContainer'
 
@@ -18,25 +18,36 @@ const hoverSectionImageMap: { [key: string]: string } = {
 }
 const HomeContainer = () => {
   const [hoverSection, setHoverSection] = useState<string>('')
+  const [containerOpacity, setContainerOpacity] = useState<number>(0)
+  useEffect(() => {
+    setContainerOpacity(1)
+  }, [])
   return (
     <div
-      className="flex flex-row h-full w-full text-white bg-cover bg-center"
+      className="flex flex-row h-full w-full text-white bg-cover"
       style={{ backgroundImage: `url(${background})` }}
     >
-      {hoverSection !== '' ? (
-        <div className="absolute w-1/2 h-full flex justify-start items-start overflow-hidden">
-          <img
-            src={hoverSectionImageMap[hoverSection]}
-            alt={hoverSection}
-            className="w-full object-cover"
-          ></img>
-          {/* <LogoComponent></LogoComponent> */}
+      <div
+        className="w-full h-full flex flex-row duration-500"
+        style={{ opacity: containerOpacity }}
+      >
+        {hoverSection !== '' ? (
+          <div className="absolute w-1/2 h-full flex justify-start items-start overflow-hidden">
+            <img
+              src={hoverSectionImageMap[hoverSection]}
+              alt={hoverSection}
+              className="w-full object-cover"
+            ></img>
+          </div>
+        ) : null}
+        <div className="flex flex-row h-full w-full py-6">
+          <LeftContainer hoverSection={hoverSection}></LeftContainer>
+          <div className="bg-white w-[0.1px] h-full"></div>
+          <RightContainer
+            setHoverSection={setHoverSection}
+            setContainerOpacity={setContainerOpacity}
+          ></RightContainer>
         </div>
-      ) : null}
-      <div className="flex flex-row h-full w-full py-6">
-        <LeftContainer hoverSection={hoverSection}></LeftContainer>
-        <div className="bg-white w-[0.1px] h-full"></div>
-        <RightContainer setHoverSection={setHoverSection}></RightContainer>
       </div>
     </div>
   )
