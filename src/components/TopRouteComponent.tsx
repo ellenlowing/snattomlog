@@ -24,11 +24,12 @@ const TopRouteComponent = (props: TopRouteComponentProps) => {
         }`}
       >
         {t(route)}
-        {activeRoute === route && (
-          <div className="translate-y-1">
-            <Dot size={6} />
-          </div>
-        )}
+        <div
+          className="translate-y-1 duration-300"
+          style={{ opacity: activeRoute === route ? 1 : 0 }}
+        >
+          <Dot size={6} />
+        </div>
       </div>
     </div>
   )

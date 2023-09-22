@@ -45,6 +45,7 @@ const LeftContainer = (props: LeftContainerProps) => {
         <DotSeparatedTexts
           texts={locations}
           popUpTexts={{}}
+          hoverCursor="default"
           marginX={marginX}
           color={'white'}
         />

@@ -3,19 +3,22 @@ import establishedImg from '@assets/DisplayImages/Established.png'
 import goldenGooseImg from '@assets/DisplayImages/GoldenGoose.png'
 import gravityImg from '@assets/DisplayImages/Gravity.png'
 import installationImg from '@assets/DisplayImages/Installation.png'
+import lVWindowImg from '@assets/DisplayImages/LVWindow.png'
 import leadershipImg from '@assets/DisplayImages/Leadership.png'
 import loroPianaImg from '@assets/DisplayImages/LoroPiana.png'
-import lVWindowImg from '@assets/DisplayImages/LVWindow.png'
 import madeInItalyImg from '@assets/DisplayImages/MadeInItaly.png'
-import ralphLaurenRunwayImg from '@assets/DisplayImages/RalphLaurenRunway.png'
-import realEstateImg from '@assets/DisplayImages/RealEstate.png'
 import rFFebImg from '@assets/DisplayImages/RFFeb.png'
 import rLWindowImg from '@assets/DisplayImages/RLWindow.png'
+import ralphLaurenRunwayImg from '@assets/DisplayImages/RalphLaurenRunway.png'
+import realEstateImg from '@assets/DisplayImages/RealEstate.png'
 import studioImg from '@assets/DisplayImages/Studio.png'
 import supremeDropImg from '@assets/DisplayImages/SupremeDrop.png'
 import technologyImg from '@assets/DisplayImages/Technology.png'
+import downArrow from '@assets/downArrow.png'
 import DisplayImage from '@components/DisplayImage'
 import EnlargeDisplayImage from '@components/EnlargeDisplayImage'
+import useIsMobile from '@hooks/useIsMobile'
+import useIsTop from '@hooks/useIsTop'
 import { useEffect, useState } from 'react'
 
 export type DisplayContainerProps = {
@@ -113,12 +116,25 @@ const imageInfos: ImageInfo[] = [
 const DisplayContainer = (props: DisplayContainerProps) => {
   const { isEnlargeImage, setIsEnlargeImage, activeRoute } = props
   const [enlargeImageInfo, setEnlargeImageInfo] = useState(imageInfos[0])
-  const [isTop, setIsTop] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isSwitchingToNewInfo, setIsSwitchingToNewInfo] =
     useState<boolean>(false)
+  const isTop = useIsTop()
   const [oldActiveRoute, setOldActiveRoute] = useState<string>('')
   const [displayImagesOpacity, setDisplayImagesOpacity] = useState<number>(0)
+  const [galleryRowCount, setGalleryRowCount] = useState<number>(2)
+  const [galleryColumnCount, setGalleryColumnCount] = useState<number>(8)
+  const isMobile = useIsMobile()
+  useEffect(() => {
+    if (isMobile) {
+      setGalleryColumnCount(2)
+      setGalleryRowCount(8)
+    } else {
+      setGalleryColumnCount(8)
+      setGalleryRowCount(2)
+    }
+  }, [isMobile])
+
   const onClickImage = (url: string) => {
     const indexOfImage = imageInfos.findIndex(imageInfo => {
       return imageInfo.url === url
@@ -137,17 +153,6 @@ const DisplayContainer = (props: DisplayContainerProps) => {
       }, 300)
     }
   }, [activeRoute])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY === 0) setIsTop(true)
-      else setIsTop(false)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
   const onClickScrollDown = () => {
     if (isEnlargeImage) {
@@ -174,7 +179,7 @@ const DisplayContainer = (props: DisplayContainerProps) => {
     setEnlargeImageInfo(imageInfos[index])
   }
   return (
-    <div className="flex flex-col w-full h-5/6 justify-between items-center">
+    <div className="flex flex-col w-full lg:h-5/6 justify-between items-center">
       <EnlargeDisplayImage
         enlargeImageInfo={enlargeImageInfo}
         isEnlargeImage={isEnlargeImage}
@@ -190,23 +195,27 @@ const DisplayContainer = (props: DisplayContainerProps) => {
           if (isEnlargeImage) setIsEnlargeImage(false)
         }}
       >
-        <div className="font-medium text-center flex tracking-[25px] text-2xl bg-opacity-50 h-[20%] justify-center items-center">
-          <div>COMMITMENT</div>
-        </div>
+        {!isMobile && (
+          <div className="font-medium text-center flex tracking-[25px] text-2xl bg-opacity-50 h-[20%] justify-center items-center">
+            <div>COMMITMENT</div>
+          </div>
+        )}
         <div
-          className="w-4/6 flex-col bg-black p-[5px] bg-opacity-50 flex h-[60%] duration-300"
+          className={`w-5/6 lg:w-4/6 flex-col bg-black p-[5px] flex lg:h-[60%] duration-300 ${
+            isEnlargeImage ? 'bg-opacity-0' : 'bg-opacity-50'
+          }`}
           style={{ opacity: displayImagesOpacity }}
         >
-          {[...new Array(2)].map((_, i) => (
+          {[...new Array(galleryRowCount)].map((_, i) => (
             <div
-              className="flex flex-row justify-center items-center w-full h-1/2"
+              className="flex flex-row justify-center items-center w-full  h-[300px]  lg:h-1/2"
               key={i}
             >
-              {[...new Array(8)].map((_, j) => (
+              {[...new Array(galleryColumnCount)].map((_, j) => (
                 <DisplayImage
                   key={j}
                   isEnlargeImage={isEnlargeImage}
-                  url={imageInfos[i * 8 + j].url}
+                  url={imageInfos[i * galleryColumnCount + j].url}
                   onClick={onClickImage}
                 />
               ))}
@@ -220,11 +229,15 @@ const DisplayContainer = (props: DisplayContainerProps) => {
           isTop ? 'hover:to-black' : '' //only work if this class is load on initial
         } ${isEnlargeImage ? '' : 'hover:cursor-s-resize'}`}
         onClick={onClickScrollDown}
+        style={{
+          cursor:
+            isEnlargeImage || !isTop ? 'default' : `url(${downArrow}), auto`,
+        }}
       >
         <div
-          className={`${
-            isTop ? 'group-hover:-translate-y-1' : ''
-          } duration-200`}
+          className={`mt-10 lg:mt-0 
+          ${isTop ? 'group-hover:-translate-y-1' : ''}
+         duration-200`}
         >
           THE SNATT OMLOG GROUP
         </div>

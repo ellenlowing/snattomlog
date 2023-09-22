@@ -1,4 +1,4 @@
-import About from '@pages/Commitment'
+import About from '@pages/About'
 import Home from '@pages/Home'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Path from './path'

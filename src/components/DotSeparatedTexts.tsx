@@ -6,6 +6,7 @@ export type DotSeparatedTextProps = {
   color: string
   marginX: number
   texts: string[]
+  hoverCursor: string
   popUpTexts: {
     [key: string]: {
       text: string
@@ -15,7 +16,7 @@ export type DotSeparatedTextProps = {
 }
 
 const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
-  const { texts, popUpTexts, marginX, color } = props
+  const { texts, popUpTexts, marginX, color, hoverCursor } = props
 
   const [isShowPopUp, setIsShowPopUp] = useState<boolean>(false)
   const [popUpWidth, setPopUpWidth] = useState<string>('')
@@ -31,7 +32,11 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
   return (
     <div className="flex flex-row w-full justify-center items-center">
       {texts.map((text, i) => (
-        <div className="flex flex-row justify-center" key={i}>
+        <div
+          className={`flex flex-row justify-center`}
+          key={i}
+          style={{ cursor: hoverCursor }}
+        >
           {isShowPopUp && (
             <div
               className="absolute flex flex-col items-end justify-start"

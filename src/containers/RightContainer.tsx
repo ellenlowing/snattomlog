@@ -1,4 +1,6 @@
 import DotSeparatedTexts from '@components/DotSeparatedTexts'
+import { translateLanguages } from '@utils/Constants'
+import { onClickLanguage } from '@utils/function'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -6,13 +8,11 @@ import { useNavigate } from 'react-router-dom'
 export type RightContainerProps = {
   setHoverSection: (hoverSection: string) => void
   setContainerOpacity: (opacity: number) => void
-  languages: string[]
-  onClickLanguage: (language: string) => void
 }
 
 const RightContainer = (props: RightContainerProps) => {
-  const { setHoverSection, setContainerOpacity, onClickLanguage, languages } =
-    props
+  const { setHoverSection, setContainerOpacity } = props
+
   const { t } = useTranslation()
   const [routes, setRoutes] = useState<string[]>([])
   const navigate = useNavigate()
@@ -51,8 +51,9 @@ const RightContainer = (props: RightContainerProps) => {
       <DotSeparatedTexts
         texts={bottomTexts}
         color={'white'}
+        hoverCursor="pointer"
         popUpTexts={{
-          Language: languages.map(language => ({
+          Language: translateLanguages.map(language => ({
             text: language,
             onClick: () => onClickLanguage(language),
           })),

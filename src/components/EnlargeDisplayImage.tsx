@@ -2,6 +2,8 @@ import crossImg from '@assets/cross.png'
 import leftArrowImg from '@assets/leftArrow.png'
 import rightArrowImg from '@assets/rightArrow.png'
 import { ImageInfo } from '@containers/DisplayContainer'
+import useIsMobile from '@hooks/useIsMobile'
+import useWindowDimensions from '@hooks/useWindowDimension'
 import { useEffect, useState } from 'react'
 
 export type EnlargeDisplayImageProps = {
@@ -28,6 +30,9 @@ const EnlargeDisplayImage = (props: EnlargeDisplayImageProps) => {
 
   const [oldImageInfo, setOldImageInfo] = useState<ImageInfo>(null)
   const [newImageInfo, setNewImageInfo] = useState<ImageInfo>(null)
+  const [isHoverImage, setIsHoverImage] = useState<boolean>(false)
+  const isMobile = useIsMobile()
+  const window = useWindowDimensions()
 
   useEffect(() => {
     if (oldImageInfo === null) {
@@ -41,7 +46,7 @@ const EnlargeDisplayImage = (props: EnlargeDisplayImageProps) => {
       setTimeout(() => {
         setOldImageInfo(enlargeImageInfo)
         setIsSwitchingToNewInfo(false)
-      }, 500)
+      }, 300)
     }
   }, [enlargeImageInfo, oldImageInfo, setIsSwitchingToNewInfo])
 
@@ -54,62 +59,70 @@ const EnlargeDisplayImage = (props: EnlargeDisplayImageProps) => {
 
   return (
     <div
-      className="w-2/3 flex flex-row justify-center duration-500 items-center absolute top-40"
+      className="w-[70%] lg:4/5 xl:w-3/5 flex flex-row justify-center duration-300 items-center fixed z-20 -translate-y-24 lg:translate-y-0"
       style={{
         opacity: isEnlargeImage ? 1 : 0,
         pointerEvents: isEnlargeImage ? 'auto' : 'none',
       }}
     >
-      <div className="w-full bg-black p-2 bg-opacity-50 flex flex-col relative justify-center items-center">
+      <div
+        className="w-full bg-black p-2 bg-opacity-50 flex flex-col relative justify-center items-center"
+        style={{ height: window.height * 0.6 }}
+        onMouseEnter={() => setIsHoverImage(true)}
+        onMouseLeave={() => setIsHoverImage(false)}
+      >
         <div
-          className="h-5/6 w-full flex justify-center items-center"
+          className="h-full flex justify-center items-center relative"
           onClick={() => setIsEnlargeImage(false)}
         >
           <img
             src={oldImageInfo?.url}
             alt=""
-            className="object-cover duration-500"
+            className="object-cover h-full duration-300"
             loading="lazy"
             style={{ opacity: isEnlargeImage ? 1 : 0 }}
           />
           <img
             src={newImageInfo?.url}
             alt=""
-            className={`object-cover absolute p-2 ${
-              isSwitchingToNewInfo ? 'duration-500' : ''
+            className={`object-cover h-full absolute ${
+              isSwitchingToNewInfo ? 'duration-300' : ''
             }`}
             loading="lazy"
             style={{ opacity: isSwitchingToNewInfo ? 1 : 0 }}
           />
         </div>
         <div
-          className="text-xs h-[75px] w-full bg-white text-black justify-start items-center flex px-12"
+          className="text-xs h-[75px] w-full bg-white text-black justify-start items-center flex px-4 lg:px-12"
           onClick={() => setIsEnlargeImage(false)}
         >
-          <div className="font-bold">{newImageInfo?.title}</div>
-          <div className="font-bold mx-1">:</div>
-          <div>{newImageInfo?.text}</div>
+          <p>
+            <span className="font-bold mr-1">{newImageInfo?.title}</span>
+            <span className="font-bold mr-1">:</span>
+            {newImageInfo?.text}
+          </p>
         </div>
-        <div
-          className="h-[60px] aspect-square absolute right-4 top-4 hover:cursor-pointer"
+        <img
+          src={crossImg}
+          alt="X"
+          className="h-[30px] lg:h-[40px] aspect-square absolute right-6 top-6 hover:cursor-pointer duration-300"
           onClick={() => setIsEnlargeImage(false)}
-        >
-          <img src={crossImg} alt="X" className="w-full h-full"></img>
-        </div>
-        <div className="h-[60px] w-[95%] absolute flex flex-row justify-between">
-          <img
-            src={leftArrowImg}
-            alt="<"
-            className="h-full aspect-square hover:cursor-pointer"
-            onClick={() => onClickLeftArrow()}
-          ></img>
-          <img
-            src={rightArrowImg}
-            alt=">"
-            className="h-full aspect-square hover:cursor-pointer"
-            onClick={() => onClickRightArrow()}
-          ></img>
-        </div>
+          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
+        ></img>
+        <img
+          src={leftArrowImg}
+          alt="<"
+          className="absolute h-[30px] lg:h-[40px] aspect-square hover:cursor-pointer left-6 duration-300 -translate-x-16 lg:-translate-x-0"
+          onClick={() => onClickLeftArrow()}
+          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
+        ></img>
+        <img
+          src={rightArrowImg}
+          alt=">"
+          className="absolute h-[30px] lg:h-[40px] aspect-square hover:cursor-pointer right-6 duration-300 translate-x-16 lg:translate-x-0"
+          onClick={() => onClickRightArrow()}
+          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
+        ></img>
       </div>
     </div>
   )

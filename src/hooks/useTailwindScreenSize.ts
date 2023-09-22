@@ -6,14 +6,11 @@ export default function useTailwindScreenSize() {
   const [screenSize, setScreenSize] = useState<string>('md')
 
   useEffect(() => {
-    const width = parseInt(
-      window.getComputedStyle(document.body).getPropertyValue('width'),
-    )
-    if (width >= 1280) {
+    if (windowDimension.width >= 1280) {
       setScreenSize('xl')
-    } else if (width >= 768) {
+    } else if (windowDimension.width >= 1024) {
       setScreenSize('lg')
-    } else if (width >= 640) {
+    } else if (windowDimension.width >= 768) {
       setScreenSize('md')
     } else {
       setScreenSize('sm')

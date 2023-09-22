@@ -1,78 +1,83 @@
+import background from '@assets/background.jpg'
 import logo from '@assets/logo.png'
 import TopRouteComponent from '@components/TopRouteComponent'
+import useIsMobile from '@hooks/useIsMobile'
 import useLanguage from '@hooks/useLanguage'
+import { routes } from '@utils/Constants'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 export type TopRouteContainerProps = {
   isEnlargeImage: boolean
   setIsEnlargeImage: (isEnlargeImage: boolean) => void
-  setContainerOpacity: (opacity: number) => void
   activeRoute: string
   setActiveRoute: (activeRoute: string) => void
+  onClickRoute: (route: string) => void
 }
 
 const TopRouteContainer = (props: TopRouteContainerProps) => {
   const {
     isEnlargeImage,
     setIsEnlargeImage,
-    setContainerOpacity,
     activeRoute,
     setActiveRoute,
+    onClickRoute,
   } = props
+  const isMobile = useIsMobile()
   const { t } = useTranslation()
-  const [routes, setRoutes] = useState<string[]>([])
-  const navigate = useNavigate()
 
   useLanguage()
   useEffect(() => {
     const route = window.location.href.split('/').pop().split('?')[0]
     setActiveRoute(route)
   }, [setActiveRoute])
-  useEffect(() => {
-    setRoutes([
-      'home',
-      'about',
-      'culture',
-      'solution',
-      'technology',
-      'sustainability',
-    ])
-  }, [t])
+  const topRoutes = ['home', ...routes]
 
-  const onClickRoute = (route: string) => {
-    if (isEnlargeImage) {
-      setIsEnlargeImage(false)
-      return
-    }
-    if (route.toLowerCase() === 'home') {
-      setContainerOpacity(0)
-      setTimeout(() => {
-        navigate(`/`)
-      }, 500)
-      return
-    }
-    navigate(`/${route.toLowerCase()}`)
-    setActiveRoute(route)
+  //drag
+  const [isDragging, setIsDragging] = useState(false)
+  const [startDragX, setStartDragX] = useState(0)
+  const [currentX, setCurrentX] = useState(0)
+  const [endDeltaX, setEndDeltaX] = useState(0)
+
+  const getTranslateX = () => {
+    //hardcode
+    return Math.min(0, Math.max(-400, currentX - startDragX + endDeltaX))
   }
 
   return (
     <div
-      className="flex flex-row h-1/6 w-full justify-center items-center py-10 px-48"
+      className="flex flex-col lg:flex-row h-[350px] lg:h-[200px] w-full justify-center items-center lg:mt-0 py-16 lg:py-10 px-0 lg:px-16 xl:px-48 sticky top-0 z-10"
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: '1920px 1200px',
+      }}
       onClick={() => setIsEnlargeImage(false)}
+      onMouseUp={() => {
+        if (isDragging) {
+          setIsDragging(false)
+          setEndDeltaX(getTranslateX())
+        }
+      }}
+      onMouseMove={event => {
+        if (isDragging) {
+          setCurrentX(event.clientX)
+        }
+      }}
     >
-      {routes.slice(0, 3).map((route, i) => (
-        <TopRouteComponent
-          key={i}
-          route={route}
-          onClickRoute={onClickRoute}
-          isEnlargeImage={isEnlargeImage}
-          activeRoute={activeRoute}
-        />
-      ))}
+      {!isMobile &&
+        topRoutes
+          .slice(0, 3)
+          .map((route, i) => (
+            <TopRouteComponent
+              key={i}
+              route={route}
+              onClickRoute={onClickRoute}
+              isEnlargeImage={isEnlargeImage}
+              activeRoute={activeRoute}
+            />
+          ))}
       <div
-        className={`flex flex-col justify-center flex-1 h-full ${
+        className={`flex flex-col justify-center flex-1 h-full py-5 ${
           isEnlargeImage ? '' : 'hover:cursor-pointer'
         }`}
         onClick={() => {
@@ -83,15 +88,59 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
           <img className="h-full object-cover" src={logo} alt="SO" />
         </div>
       </div>
-      {routes.slice(3, 6).map((route, i) => (
-        <TopRouteComponent
-          key={i}
-          route={route}
-          onClickRoute={onClickRoute}
-          isEnlargeImage={isEnlargeImage}
-          activeRoute={activeRoute}
-        />
-      ))}
+      {!isMobile &&
+        topRoutes
+          .slice(3, 6)
+          .map((route, i) => (
+            <TopRouteComponent
+              key={i}
+              route={route}
+              onClickRoute={onClickRoute}
+              isEnlargeImage={isEnlargeImage}
+              activeRoute={activeRoute}
+            />
+          ))}
+      {isMobile && (
+        <div className="font-bold text-center flex tracking-[15px] text-md bg-opacity-50 h-[20%] justify-center items-center mt-4 text-lg">
+          <div>COMMITMENT</div>
+        </div>
+      )}
+      {isMobile && (
+        <div
+          className="mt-3 h-[40px] w-full flex flex-row justify-start items-center font-thin tracking-[2px] text-sm overflow-hidden duration-300"
+          style={{ opacity: isEnlargeImage ? 0 : 1 }}
+          onMouseDown={event => {
+            setIsDragging(true)
+            setStartDragX(event.clientX)
+            setCurrentX(event.clientX)
+          }}
+        >
+          <div
+            className="flex flex-row justify-start items-center "
+            style={{
+              transform: `translateX(${
+                isDragging ? getTranslateX() : endDeltaX
+              }px)`,
+            }}
+          >
+            {routes.map((route, i) => (
+              <div
+                key={i}
+                className="h-full px-8 mx-2 uppercase text-center flex justify-center items-center rounded-full duration-300 cursor-default select-none"
+                style={{
+                  backgroundColor:
+                    activeRoute === route ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)',
+                }}
+                onClick={() => {
+                  onClickRoute(route)
+                }}
+              >
+                <div>{t(route)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
