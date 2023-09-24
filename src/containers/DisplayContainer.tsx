@@ -201,7 +201,7 @@ const DisplayContainer = (props: DisplayContainerProps) => {
           </div>
         )}
         <div
-          className={`w-5/6 lg:w-4/6 flex-col bg-black p-[5px] flex lg:h-[60%] duration-300 ${
+          className={`w-5/6 lg:w-4/6 flex-col bg-black p-[5px] mt-2 flex lg:h-[60%] duration-300 ${
             isEnlargeImage ? 'bg-opacity-0' : 'bg-opacity-50'
           }`}
           style={{ opacity: displayImagesOpacity }}
@@ -234,13 +234,15 @@ const DisplayContainer = (props: DisplayContainerProps) => {
             isEnlargeImage || !isTop ? 'default' : `url(${downArrow}), auto`,
         }}
       >
-        <div
-          className={`mt-10 lg:mt-0 
+        {!isMobile && (
+          <div
+            className={`semplicita mt-10 lg:mt-0 text-xs -text-center tracking-[7px]
           ${isTop ? 'group-hover:-translate-y-1' : ''}
          duration-200`}
-        >
-          THE SNATT OMLOG GROUP
-        </div>
+          >
+            THE SNATT OMLOG GROUP
+          </div>
+        )}
       </div>
     </div>
   )

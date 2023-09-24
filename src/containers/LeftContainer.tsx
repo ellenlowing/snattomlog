@@ -18,25 +18,21 @@ const locations: string[] = [
 
 const LeftContainer = (props: LeftContainerProps) => {
   const { hoverSection } = props
-  const [marginX, setMarginX] = useState<number>(0)
-  const [fontSize, setFontSize] = useState<string>('15px')
-  const twScreenSize = useTailwindScreenSize()
+  const [fontSize, setFontSize] = useState<number>(0)
+  const windowSize = useTailwindScreenSize()
 
   useEffect(() => {
-    if (twScreenSize === 'xl') {
-      setMarginX(4)
-      setFontSize('15px')
-    } else if (twScreenSize === 'lg') {
-      setMarginX(4)
-      setFontSize('15px')
-    } else if (twScreenSize === 'md') {
-      setMarginX(2)
-      setFontSize('10px')
-    } else if (twScreenSize === 'sm') {
-      setMarginX(0)
-      setFontSize('10px')
+    if (windowSize === 'lg') {
+      setFontSize(14)
+    } else if (windowSize === 'md') {
+      setFontSize(15)
+    } else if (windowSize === 'sm') {
+      setFontSize(11)
+    } else if (windowSize === 'xs') {
+      setFontSize(8)
     }
-  }, [twScreenSize])
+    console.log(windowSize)
+  }, [windowSize])
   return (
     <div className="flex-1 flex-col justify-between items-center flex">
       <LogoComponent></LogoComponent>
@@ -46,16 +42,17 @@ const LeftContainer = (props: LeftContainerProps) => {
           <div>In Creative Worlds</div>
         </div>
       ) : null}
-      {hoverSection === '' ? (
-        <DotSeparatedTexts
-          texts={locations}
-          popUpTexts={{}}
-          fontSize={fontSize}
-          hoverCursor="default"
-          marginX={marginX}
-          color={'white'}
-        />
-      ) : null}
+      {!hoverSection && (
+        <div className="w-full px-4 sm:px-8 lg:px-4 xl:px-8 h-4">
+          <DotSeparatedTexts
+            texts={locations}
+            popUpTexts={{}}
+            fontSize={fontSize}
+            hoverCursor="default"
+            color={'white'}
+          />
+        </div>
+      )}
     </div>
   )
 }

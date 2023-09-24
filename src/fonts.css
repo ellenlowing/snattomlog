@@ -1,4 +1,9 @@
 @font-face {
-    font-family: 'Helvetica';
-    src: url('./fonts/Helvetica.ttf') format('opentype');
-  }
+  font-family: 'Helvetica';
+  src: url('./fonts/Helvetica.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'semplicita';
+  src: url('./fonts/Semplicita\ Medium.otf') format('opentype');
+}

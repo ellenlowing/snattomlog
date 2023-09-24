@@ -12,8 +12,10 @@ export default function useTailwindScreenSize() {
       setScreenSize('lg')
     } else if (windowDimension.width >= 768) {
       setScreenSize('md')
-    } else {
+    } else if (windowDimension.width >= 450) {
       setScreenSize('sm')
+    } else {
+      setScreenSize('xs')
     }
   }, [windowDimension])
   return screenSize

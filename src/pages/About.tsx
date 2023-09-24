@@ -72,19 +72,28 @@ const About = () => {
           setActiveRoute={setActiveRoute}
           onClickRoute={onClickRoute}
         />
+        {!isMobile && (
+          <div
+            className="w-full h-[40px] bg-[rgba(0,0,0,0.5)]"
+            onClick={() => setIsEnlargeImage(false)}
+          ></div>
+        )}
         <div
-          className="w-full h-[40px] bg-[rgba(0,0,0,0.5)]"
+          className={`w-full h-[50px] bg-gradient-to-b ${
+            isMobile ? 'from-[rgba(0,0,0,0)]' : 'from-[rgba(0,0,0,0.5)]'
+          } to-black`}
           onClick={() => setIsEnlargeImage(false)}
         ></div>
         <div
-          className="w-full h-[50px] bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-black"
-          onClick={() => setIsEnlargeImage(false)}
-        ></div>
-        <div
-          className="w-full flex flex-col justify-between items-center px-[15%] pb-[40px] bg-black"
+          className="w-full flex flex-col justify-between items-center px-[5%] lg:px-[15%] lg:pb-[40px] bg-black"
           onClick={() => setIsEnlargeImage(false)}
         >
-          <div className="text-sm lg:text-lg text-white h-[100px] mb-12 text-center">
+          {isMobile && (
+            <div className={`text-xs -text-center tracking-[7px] duration-200 semplicita`}>
+              THE SNATT OMLOG GROUP
+            </div>
+          )}
+          <div className="text-sm lg:text-lg text-white h-[180px] lg:h-[100px] my-6 lg:mb-12 text-center ">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -93,14 +102,15 @@ const About = () => {
             pariatur. Excepteur sint occaecat cupidatat non proident.
           </div>
           {!isMobile && (
-            <DotSeparatedTexts
-              marginX={24}
-              fontSize={'15px'}
-              color={'white'}
-              hoverCursor="pointer"
-              popUpTexts={{}}
-              texts={texts}
-            />
+            <div className="w-[280px]">
+              <DotSeparatedTexts
+                fontSize={15}
+                color={'white'}
+                hoverCursor="pointer"
+                popUpTexts={{}}
+                texts={texts}
+              />
+            </div>
           )}
         </div>
       </div>

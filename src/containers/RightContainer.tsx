@@ -48,19 +48,20 @@ const RightContainer = (props: RightContainerProps) => {
           <div>Download Our Fact Sheet</div>
         </div>
       </div>
-      <DotSeparatedTexts
-        texts={bottomTexts}
-        color={'white'}
-        hoverCursor="pointer"
-        popUpTexts={{
-          Language: translateLanguages.map(language => ({
-            text: language,
-            onClick: () => onClickLanguage(language),
-          })),
-        }}
-        marginX={28}
-        fontSize="15px"
-      />
+      <div className="w-1/4">
+        <DotSeparatedTexts
+          texts={bottomTexts}
+          color={'white'}
+          hoverCursor="pointer"
+          popUpTexts={{
+            Language: translateLanguages.map(language => ({
+              text: language,
+              onClick: () => onClickLanguage(language),
+            })),
+          }}
+          fontSize={15}
+        />
+      </div>
     </div>
   )
 }

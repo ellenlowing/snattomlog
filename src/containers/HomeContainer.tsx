@@ -55,7 +55,7 @@ const HomeContainer = () => {
             ></img>
           </div>
         ) : null}
-        <div className="flex flex-row h-full w-full py-6">
+        <div className="flex flex-row h-full w-full py-6 overflow-hidden">
           <LeftContainer hoverSection={hoverSection}></LeftContainer>
           <div className="bg-white w-[0.1px] h-full hidden lg:flex"></div>
           <RightContainer

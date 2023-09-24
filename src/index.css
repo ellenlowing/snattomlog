@@ -3,10 +3,33 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overscroll-behavior: none;
+}
+
 body{
   margin:0;
   background-color: rgb(31, 31, 31);
   /* font-family: 'Helveltica'; */
   /* font-weight: 400; */
   line-height: 22px;
+}
+
+.semplicita {
+  font-family: 'semplicita';
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    * {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+  }
 }

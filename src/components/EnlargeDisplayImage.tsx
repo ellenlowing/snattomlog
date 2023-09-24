@@ -59,15 +59,14 @@ const EnlargeDisplayImage = (props: EnlargeDisplayImageProps) => {
 
   return (
     <div
-      className="w-[70%] lg:4/5 xl:w-3/5 flex flex-row justify-center duration-300 items-center fixed z-20 -translate-y-24 lg:translate-y-0"
+      className="w-4/5 lg:w-4/5 xl:w-3/5 flex flex-col justify-center duration-300 items-center fixed z-20 h-[65%] -translate-y-6"
       style={{
         opacity: isEnlargeImage ? 1 : 0,
         pointerEvents: isEnlargeImage ? 'auto' : 'none',
       }}
     >
       <div
-        className="w-full bg-black p-2 bg-opacity-50 flex flex-col relative justify-center items-center"
-        style={{ height: window.height * 0.6 }}
+        className="w-full bg-black p-3 bg-opacity-50 flex flex-col relative justify-center items-center h-full"
         onMouseEnter={() => setIsHoverImage(true)}
         onMouseLeave={() => setIsHoverImage(false)}
       >
@@ -92,8 +91,44 @@ const EnlargeDisplayImage = (props: EnlargeDisplayImageProps) => {
             style={{ opacity: isSwitchingToNewInfo ? 1 : 0 }}
           />
         </div>
+        {!isMobile && (
+          <div
+            className="text-xs h-[100px] lg:h-[75px] w-full bg-white text-black justify-start items-center flex px-4 lg:px-12"
+            onClick={() => setIsEnlargeImage(false)}
+          >
+            <p>
+              <span className="font-bold mr-1">{newImageInfo?.title}</span>
+              <span className="font-bold mr-1">:</span>
+              {newImageInfo?.text}
+            </p>
+          </div>
+        )}
+
+        <img
+          src={crossImg}
+          alt="X"
+          className="h-[20px] lg:h-[40px] aspect-square absolute right-4 top-4 lg:right-6 lg:top-6 hover:cursor-pointer duration-300"
+          onClick={() => setIsEnlargeImage(false)}
+          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
+        ></img>
+        <img
+          src={leftArrowImg}
+          alt="<"
+          className="absolute h-[30px] lg:h-[40px] aspect-square hover:cursor-pointer left-4 duration-300 -translate-x-14 lg:-translate-x-0"
+          onClick={() => onClickLeftArrow()}
+          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
+        ></img>
+        <img
+          src={rightArrowImg}
+          alt=">"
+          className="absolute h-[30px] lg:h-[40px] aspect-square hover:cursor-pointer right-4 duration-300 translate-x-14 lg:translate-x-0"
+          onClick={() => onClickRightArrow()}
+          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
+        ></img>
+      </div>
+      {isMobile && (
         <div
-          className="text-xs h-[75px] w-full bg-white text-black justify-start items-center flex px-4 lg:px-12"
+          className="text-xs h-[100px] lg:h-[75px] w-full bg-white text-black justify-start items-center flex px-4 lg:px-12"
           onClick={() => setIsEnlargeImage(false)}
         >
           <p>
@@ -102,28 +137,7 @@ const EnlargeDisplayImage = (props: EnlargeDisplayImageProps) => {
             {newImageInfo?.text}
           </p>
         </div>
-        <img
-          src={crossImg}
-          alt="X"
-          className="h-[30px] lg:h-[40px] aspect-square absolute right-6 top-6 hover:cursor-pointer duration-300"
-          onClick={() => setIsEnlargeImage(false)}
-          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
-        ></img>
-        <img
-          src={leftArrowImg}
-          alt="<"
-          className="absolute h-[30px] lg:h-[40px] aspect-square hover:cursor-pointer left-6 duration-300 -translate-x-16 lg:-translate-x-0"
-          onClick={() => onClickLeftArrow()}
-          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
-        ></img>
-        <img
-          src={rightArrowImg}
-          alt=">"
-          className="absolute h-[30px] lg:h-[40px] aspect-square hover:cursor-pointer right-6 duration-300 translate-x-16 lg:translate-x-0"
-          onClick={() => onClickRightArrow()}
-          style={{ opacity: isHoverImage || isMobile ? 1 : 0 }}
-        ></img>
-      </div>
+      )}
     </div>
   )
 }

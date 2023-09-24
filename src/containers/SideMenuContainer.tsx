@@ -29,10 +29,10 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
   return (
     <div>
       <div
-        className="fixed right-8 top-16 h-8 aspect-square hover:cursor-pointer z-20 flex lg:hidden"
+        className="fixed right-8 top-16 h-[25px] hover:cursor-pointer z-20 flex lg:hidden"
         onClick={() => setIsShowPopUp(true)}
       >
-        <img src={menuIcon} alt="menuIcon" className="object-cover" />
+        <img src={menuIcon} alt="menuIcon" className="object-fit" />
       </div>
       <div
         className=" fixed bg-black w-3/4 top-0 right-0 z-30 flex flex-col lg:hidden justify-around items-center duration-200"
@@ -41,12 +41,12 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
           height: `${window.height}px`,
         }}
       >
-        <div className="h-36 w-full justify-center items-center flex">
+        <div className="h-36 w-full justify-center items-center flex ">
           <div
-            className="h-12 aspect-square text-center cursor-pointer"
+            className="h-[40px] text-center cursor-pointer"
             onClick={() => setIsShowPopUp(false)}
           >
-            <img src={cross} alt="cross" className="object-cover" />
+            <img src={cross} alt="cross" className="h-full object-fit" />
           </div>
         </div>
         <div className="flex-1 flex justify-end items-center flex-col capitalize relative">
