@@ -23,7 +23,7 @@ const RightContainer = (props: RightContainerProps) => {
     setContainerOpacity(0)
     setTimeout(() => {
       navigate(`/${route.toLowerCase()}`)
-    }, 500)
+    }, 300)
   }
   const bottomTexts: string[] = ['Contact', 'Language']
 
@@ -59,6 +59,7 @@ const RightContainer = (props: RightContainerProps) => {
           })),
         }}
         marginX={28}
+        fontSize="15px"
       />
     </div>
   )

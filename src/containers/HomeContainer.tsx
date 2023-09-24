@@ -5,7 +5,6 @@ import sustainabilityImg from '@assets/Left/Sustainability.png'
 import technologyImg from '@assets/Left/Technology.png'
 import background from '@assets/background.jpg'
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import LeftContainer from './LeftContainer'
 import RightContainer from './RightContainer'
@@ -22,7 +21,6 @@ const hoverSectionImageMap: { [key: string]: string } = {
 const HomeContainer = () => {
   const [hoverSection, setHoverSection] = useState<string>('')
   const [containerOpacity, setContainerOpacity] = useState<number>(0)
-  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const onClickRoute = (route: string) => {

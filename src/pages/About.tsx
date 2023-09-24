@@ -17,6 +17,15 @@ const About = () => {
     setContainerOpacity(1)
   }, [])
 
+  useEffect(() => {
+    //disable scroll when enlargeimage
+    if (isEnlargeImage) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isEnlargeImage])
+
   const onClickRoute = (route: string) => {
     if (isEnlargeImage) {
       setIsEnlargeImage(false)
@@ -26,7 +35,7 @@ const About = () => {
       setContainerOpacity(0)
       setTimeout(() => {
         navigate(`/`)
-      }, 500)
+      }, 300)
       return
     }
     navigate(`/${route.toLowerCase()}`)
@@ -34,12 +43,23 @@ const About = () => {
   }
   return (
     <div
-      className="w-full h-full bg-fixed text-white"
+      className="w-full h-full text-white"
       style={{
-        backgroundImage: `url(${background})`,
+        backgroundImage: isMobile ? '' : `url(${background})`,
         backgroundSize: '1920px 1200px',
+        backgroundAttachment: isMobile ? '' : 'fixed',
       }}
     >
+      {/*https://css-tricks.com/the-fixed-background-attachment-hack/*/}
+      {isMobile && (
+        <div
+          className="w-full h-full text-white fixed -z-10"
+          style={{
+            backgroundImage: `url(${background})`,
+            backgroundSize: '1920px 1200px',
+          }}
+        ></div>
+      )}
       <SideMenuContainer onClickRoute={onClickRoute}></SideMenuContainer>
       <div
         className="w-full h-full duration-300"
@@ -75,6 +95,7 @@ const About = () => {
           {!isMobile && (
             <DotSeparatedTexts
               marginX={24}
+              fontSize={'15px'}
               color={'white'}
               hoverCursor="pointer"
               popUpTexts={{}}

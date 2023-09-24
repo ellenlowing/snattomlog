@@ -5,6 +5,7 @@ import Dot from './Dot'
 export type DotSeparatedTextProps = {
   color: string
   marginX: number
+  fontSize: string
   texts: string[]
   hoverCursor: string
   popUpTexts: {
@@ -16,7 +17,7 @@ export type DotSeparatedTextProps = {
 }
 
 const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
-  const { texts, popUpTexts, marginX, color, hoverCursor } = props
+  const { texts, popUpTexts, marginX, fontSize, color, hoverCursor } = props
 
   const [isShowPopUp, setIsShowPopUp] = useState<boolean>(false)
   const [popUpWidth, setPopUpWidth] = useState<string>('')
@@ -73,9 +74,9 @@ const DotSeparatedTexts = (props: DotSeparatedTextProps) => {
             </div>
           )}
           <div
-            className="text-sm hover:font-bold"
+            className="hover:font-bold"
             ref={popUpRef}
-            style={{ color: color }}
+            style={{ color: color, fontSize: fontSize }}
             onMouseEnter={() => {
               if (popUpTexts[text]) setIsShowPopUp(true)
             }}

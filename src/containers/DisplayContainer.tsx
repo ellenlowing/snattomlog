@@ -208,7 +208,7 @@ const DisplayContainer = (props: DisplayContainerProps) => {
         >
           {[...new Array(galleryRowCount)].map((_, i) => (
             <div
-              className="flex flex-row justify-center items-center w-full  h-[300px]  lg:h-1/2"
+              className="flex flex-row justify-center items-center w-full h-[300px] lg:h-1/2"
               key={i}
             >
               {[...new Array(galleryColumnCount)].map((_, j) => (

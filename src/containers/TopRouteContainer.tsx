@@ -41,12 +41,12 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
 
   const getTranslateX = () => {
     //hardcode
-    return Math.min(0, Math.max(-400, currentX - startDragX + endDeltaX))
+    return Math.min(0, Math.max(-500, currentX - startDragX + endDeltaX))
   }
 
   return (
     <div
-      className="flex flex-col lg:flex-row h-[350px] lg:h-[200px] w-full justify-center items-center lg:mt-0 py-16 lg:py-10 px-0 lg:px-16 xl:px-48 sticky top-0 z-10"
+      className="flex flex-col lg:flex-row h-auto lg:h-[200px] w-full justify-start items-center lg:mt-0 pt-6 pb-0 lg:py-10 px-0 lg:px-16 xl:px-48 sticky top-0 z-10 "
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: '1920px 1200px',
@@ -58,9 +58,20 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
           setEndDeltaX(getTranslateX())
         }
       }}
+      onTouchEnd={() => {
+        if (isDragging) {
+          setIsDragging(false)
+          setEndDeltaX(getTranslateX())
+        }
+      }}
       onMouseMove={event => {
         if (isDragging) {
           setCurrentX(event.clientX)
+        }
+      }}
+      onTouchMove={event => {
+        if (isDragging) {
+          setCurrentX(event.touches[0].clientX)
         }
       }}
     >
@@ -77,14 +88,14 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
             />
           ))}
       <div
-        className={`flex flex-col justify-center flex-1 h-full py-5 ${
+        className={`flex flex-col justify-center ${
           isEnlargeImage ? '' : 'hover:cursor-pointer'
         }`}
         onClick={() => {
           onClickRoute('home')
         }}
       >
-        <div className="flex flex-row justify-center items-center h-full ">
+        <div className="flex flex-row justify-center items-center mt-10 lg:mt-0 h-[80px] ">
           <img className="h-full object-cover" src={logo} alt="SO" />
         </div>
       </div>
@@ -101,18 +112,23 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
             />
           ))}
       {isMobile && (
-        <div className="font-bold text-center flex tracking-[15px] text-md bg-opacity-50 h-[20%] justify-center items-center mt-4 text-lg">
+        <div className="font-bold text-center flex tracking-[15px] text-md bg-opacity-50 h-[20%] justify-center items-center mt-12 text-lg">
           <div>COMMITMENT</div>
         </div>
       )}
       {isMobile && (
         <div
-          className="mt-3 h-[40px] w-full flex flex-row justify-start items-center font-thin tracking-[2px] text-sm overflow-hidden duration-300"
+          className="my-2 h-[40px] w-full flex flex-row justify-start items-center font-thin tracking-[2px] text-sm overflow-hidden duration-300"
           style={{ opacity: isEnlargeImage ? 0 : 1 }}
           onMouseDown={event => {
             setIsDragging(true)
             setStartDragX(event.clientX)
             setCurrentX(event.clientX)
+          }}
+          onTouchStart={event => {
+            setIsDragging(true)
+            setStartDragX(event.touches[0].clientX)
+            setCurrentX(event.touches[0].clientX)
           }}
         >
           <div

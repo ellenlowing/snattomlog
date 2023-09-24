@@ -1,5 +1,6 @@
 import cross from '@assets/cross.png'
 import menuIcon from '@assets/menuIcon.png'
+import useWindowDimensions from '@hooks/useWindowDimension'
 import { extraRoutes, routes, translateLanguages } from '@utils/Constants'
 import { onClickLanguage } from '@utils/function'
 import { t } from 'i18next'
@@ -18,6 +19,7 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
     ...translateLanguages,
     '',
   ]
+  const window = useWindowDimensions()
 
   const [isShowPopUp, setIsShowPopUp] = useState<boolean>(false)
   const onClickLanguageBtn = () => {
@@ -27,14 +29,17 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
   return (
     <div>
       <div
-        className="fixed right-8 top-16 h-8 aspect-squarhover:cursor-pointer z-20 flex lg:hidden"
+        className="fixed right-8 top-16 h-8 aspect-square hover:cursor-pointer z-20 flex lg:hidden"
         onClick={() => setIsShowPopUp(true)}
       >
         <img src={menuIcon} alt="menuIcon" className="object-cover" />
       </div>
       <div
-        className=" fixed h-full bg-black w-3/4 right-0 z-30 flex flex-col lg:hidden justify-around items-center duration-200"
-        style={{ transform: `translateX(${isShowPopUp ? '0' : '100%'})` }}
+        className=" fixed bg-black w-3/4 top-0 right-0 z-30 flex flex-col lg:hidden justify-around items-center duration-200"
+        style={{
+          transform: `translateX(${isShowPopUp ? '0' : '100%'})`,
+          height: `${window.height}px`,
+        }}
       >
         <div className="h-36 w-full justify-center items-center flex">
           <div
@@ -44,34 +49,37 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
             <img src={cross} alt="cross" className="object-cover" />
           </div>
         </div>
-        <div className="flex-1 flex justify-end items-center flex-col capitalize">
-          {sideMenuButtons.map((route, i) => (
+        <div className="flex-1 flex justify-end items-center flex-col capitalize relative">
+          {sideMenuButtons.map((sideMenuButton, i) => (
             <div
               key={i}
-              className="hover:cursor-pointer hover:font-bold duration-300 h-[90px]"
+              className="hover:cursor-pointer hover:font-bold duration-300 flex-1 flex items-center"
               style={{
-                opacity: route !== 'language' && isFocusLanguage ? 0 : 1,
+                opacity:
+                  sideMenuButton !== 'language' && isFocusLanguage ? 0 : 1,
                 pointerEvents:
-                  route !== 'language' && isFocusLanguage ? 'none' : 'auto',
+                  sideMenuButton !== 'language' && isFocusLanguage
+                    ? 'none'
+                    : 'auto',
               }}
               onClick={() => {
-                if (route === 'contact') {
-                } else if (route === 'language') {
+                if (sideMenuButton === 'contact') {
+                } else if (sideMenuButton === 'language') {
                   onClickLanguageBtn()
                 } else {
                   setIsShowPopUp(false)
-                  onClickRoute(route)
+                  onClickRoute(sideMenuButton)
                 }
               }}
             >
-              {t(route)}
+              {t(sideMenuButton)}
             </div>
           ))}
-          <div className="flex-1 flex justify-end items-center flex-col capitalize absolute pointer-events-none">
+          <div className="flex-1 flex justify-end items-center flex-col capitalize absolute top-0 h-full overflow-visible w-0">
             {languages.map((language, i) => (
               <div
                 key={i}
-                className="hover:cursor-pointer hover:font-bold duration-300 h-[90px]"
+                className="hover:cursor-pointer hover:font-bold duration-300 flex-1 flex items-center"
                 style={{
                   opacity: isFocusLanguage ? 1 : 0,
                   pointerEvents:
@@ -84,10 +92,11 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
                 {language}
               </div>
             ))}
+            <div className="flex-[2]"></div>
           </div>
-        </div>
-        <div className="h-28 italic w-full flex justify-center items-center">
-          <div>Download Our Fact Sheet</div>
+          <div className="flex-[2] italic w-full flex justify-center items-center ">
+            <div>Download Our Fact Sheet</div>
+          </div>
         </div>
       </div>
     </div>

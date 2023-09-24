@@ -19,17 +19,22 @@ const locations: string[] = [
 const LeftContainer = (props: LeftContainerProps) => {
   const { hoverSection } = props
   const [marginX, setMarginX] = useState<number>(0)
+  const [fontSize, setFontSize] = useState<string>('15px')
   const twScreenSize = useTailwindScreenSize()
 
   useEffect(() => {
     if (twScreenSize === 'xl') {
       setMarginX(4)
+      setFontSize('15px')
     } else if (twScreenSize === 'lg') {
       setMarginX(4)
+      setFontSize('15px')
     } else if (twScreenSize === 'md') {
       setMarginX(2)
+      setFontSize('10px')
     } else if (twScreenSize === 'sm') {
-      setMarginX(1)
+      setMarginX(0)
+      setFontSize('10px')
     }
   }, [twScreenSize])
   return (
@@ -45,6 +50,7 @@ const LeftContainer = (props: LeftContainerProps) => {
         <DotSeparatedTexts
           texts={locations}
           popUpTexts={{}}
+          fontSize={fontSize}
           hoverCursor="default"
           marginX={marginX}
           color={'white'}
