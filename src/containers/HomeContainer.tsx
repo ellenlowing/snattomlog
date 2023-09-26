@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import LeftContainer from './LeftContainer'
 import RightContainer from './RightContainer'
 import SideMenuContainer from './SideMenuContainer'
+import useBackgroundSize from '@hooks/useBackgroundSize'
 
 // 'about', 'culture', 'solution', 'technology', 'sustainability'
 const hoverSectionImageMap: { [key: string]: string } = {
@@ -22,6 +23,7 @@ const HomeContainer = () => {
   const [hoverSection, setHoverSection] = useState<string>('')
   const [containerOpacity, setContainerOpacity] = useState<number>(0)
   const navigate = useNavigate()
+  const backgroundSize = useBackgroundSize()
 
   const onClickRoute = (route: string) => {
     setContainerOpacity(0)
@@ -38,7 +40,7 @@ const HomeContainer = () => {
       className="h-full w-full bg-fixed flex flex-row text-white relative overflow-hidden"
       style={{
         backgroundImage: `url(${background})`,
-        backgroundSize: '1920px 1200px',
+        backgroundSize: backgroundSize,
       }}
     >
       <SideMenuContainer onClickRoute={onClickRoute}></SideMenuContainer>

@@ -7,6 +7,7 @@ import useWindowDimensions from '@hooks/useWindowDimension'
 import { routes } from '@utils/Constants'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import useBackgroundSize from '@hooks/useBackgroundSize'
 
 export type TopRouteContainerProps = {
   isEnlargeImage: boolean
@@ -33,6 +34,7 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
   const sustainabilityRef = useRef<HTMLDivElement>(null)
 
   const windowDim = useWindowDimensions()
+  const backgroundSize = useBackgroundSize()
   useLanguage()
   useEffect(() => {
     const route = window.location.href.split('/').pop().split('?')[0]
@@ -176,7 +178,7 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
       className="flex flex-col lg:flex-row h-auto lg:h-[200px] w-full justify-start items-center lg:mt-0 pb-0 lg:py-10 px-0 lg:px-16 xl:px-48 sticky top-0 z-10 "
       style={{
         backgroundImage: `url(${background})`,
-        backgroundSize: '1920px 1200px',
+        backgroundSize: backgroundSize,
       }}
       onClick={() => setIsEnlargeImage(false)}
       onMouseUp={() => {

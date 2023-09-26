@@ -5,6 +5,7 @@ import SideMenuContainer from '@containers/SideMenuContainer'
 import useIsMobile from '@hooks/useIsMobile'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useBackgroundSize from '@hooks/useBackgroundSize'
 
 const About = () => {
   const texts: string[] = ['Contact', 'Download Fact Sheet']
@@ -12,6 +13,7 @@ const About = () => {
   const [containerOpacity, setContainerOpacity] = useState<number>(0)
   const [activeRoute, setActiveRoute] = useState<string>('')
   const navigate = useNavigate()
+  const backgroundSize = useBackgroundSize()
   const isMobile = useIsMobile()
   useEffect(() => {
     setContainerOpacity(1)
@@ -46,7 +48,7 @@ const About = () => {
       className="w-full h-full text-white"
       style={{
         backgroundImage: isMobile ? '' : `url(${background})`,
-        backgroundSize: '1920px 1200px',
+        backgroundSize: backgroundSize,
         backgroundAttachment: isMobile ? '' : 'fixed',
       }}
     >
@@ -56,7 +58,7 @@ const About = () => {
           className="w-full h-full text-white fixed -z-10"
           style={{
             backgroundImage: `url(${background})`,
-            backgroundSize: '1920px 1200px',
+            backgroundSize: backgroundSize,
           }}
         ></div>
       )}
