@@ -31,7 +31,6 @@ const LeftContainer = (props: LeftContainerProps) => {
     } else if (windowSize === 'xs') {
       setFontSize(8)
     }
-    console.log(windowSize)
   }, [windowSize])
   return (
     <div className="flex-1 flex-col justify-between items-center flex">
