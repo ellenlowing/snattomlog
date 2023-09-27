@@ -27,9 +27,9 @@ const SideMenuContainer = (props: SideMenuContainerProps) => {
   }
 
   return (
-    <div>
+    <div className="flex">
       <div
-        className="fixed right-8 top-16 h-[25px] hover:cursor-pointer z-20 flex lg:hidden"
+        className="fixed right-0 top-16 h-[25px] hover:cursor-pointer z-20 flex lg:hidden"
         onClick={() => setIsShowPopUp(true)}
       >
         <img src={menuIcon} alt="menuIcon" className="object-fit" />

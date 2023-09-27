@@ -1,13 +1,13 @@
 import background from '@assets/background.jpg'
 import logo from '@assets/logo.png'
 import TopRouteComponent from '@components/TopRouteComponent'
+import useBackgroundSize from '@hooks/useBackgroundSize'
 import useIsMobile from '@hooks/useIsMobile'
 import useLanguage from '@hooks/useLanguage'
 import useWindowDimensions from '@hooks/useWindowDimension'
 import { routes } from '@utils/Constants'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import useBackgroundSize from '@hooks/useBackgroundSize'
 
 export type TopRouteContainerProps = {
   isEnlargeImage: boolean
@@ -43,6 +43,7 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
   const topRoutes = ['home', ...routes]
 
   //drag
+  const [isDragBefore, setIsDragBefore] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [startDragX, setStartDragX] = useState(0)
   const [currentX, setCurrentX] = useState(0)
@@ -103,6 +104,7 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
   useEffect(() => {
     if (isDragging) {
       document.body.style.overflow = 'hidden'
+      setIsDragBefore(true)
     } else {
       document.body.style.overflow = 'auto'
       const centerX = windowDim.width / 2
@@ -164,7 +166,9 @@ const TopRouteContainer = (props: TopRouteContainerProps) => {
       if (closetRoute === activeRoute) {
         setEndDeltaX(centerX - endDeltaXMinusValue)
       } else {
-        onClickRoute(closetRoute)
+        if (isDragBefore) {
+          onClickRoute(closetRoute)
+        }
       }
     }
   }, [isDragging])

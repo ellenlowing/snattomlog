@@ -2,10 +2,10 @@ import background from '@assets/background.jpg'
 import DotSeparatedTexts from '@components/DotSeparatedTexts'
 import CommitmentContainer from '@containers/CommitmentContainer'
 import SideMenuContainer from '@containers/SideMenuContainer'
+import useBackgroundSize from '@hooks/useBackgroundSize'
 import useIsMobile from '@hooks/useIsMobile'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useBackgroundSize from '@hooks/useBackgroundSize'
 
 const About = () => {
   const texts: string[] = ['Contact', 'Download Fact Sheet']
@@ -91,11 +91,16 @@ const About = () => {
           onClick={() => setIsEnlargeImage(false)}
         >
           {isMobile && (
-            <div className={`text-xs -text-center tracking-[7px] duration-200 semplicita`}>
+            <div
+              className={`text-xs -text-center tracking-[7px] duration-200 semplicita`}
+            >
               THE SNATT OMLOG GROUP
             </div>
           )}
-          <div className="text-sm lg:text-lg text-white h-[180px] lg:h-[100px] my-6 lg:mb-12 text-center ">
+          <div
+            className="text-sm lg:text-lg text-white h-[180px] lg:h-[100px] my-6 lg:mb-12 text-center duration-300"
+            style={{ opacity: isEnlargeImage ? 0 : 1 }}
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
